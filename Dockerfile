@@ -4,6 +4,12 @@ MAINTAINER rexshi <rexshi@pgyer.com>
 EXPOSE 80 22
 ENV GO111MODULE=off
 
+
+RUN sed -i s@/deb.debian.org/@/mirrors.aliyun.com/@g /etc/apt/sources.list
+RUN cat /etc/apt/sources.list
+RUN apt-get clean
+RUN apt-get update
+
 RUN apt-get update -y \
 && apt-get install libyaml-dev git golang-go zip sendmail mailutils mariadb-client vim -y \
 && pecl install yaml \
@@ -27,7 +33,7 @@ RUN docker-service enable ssh && docker-service enable cron
 # Codefever repo
 RUN mkdir -p /data/www \
 && cd /data/www \
-&& git clone https://github.com/PGYER/codefever.git codefever-community \
+&& git clone https://github.com/yifunxxx/codefever.git codefever-community \
 && cd codefever-community
 
 # Nginx
